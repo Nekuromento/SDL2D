@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NsightTegraProject">
+    <NsightTegraProjectRevisionNumber>4</NsightTegraProjectRevisionNumber>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Tegra-Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Tegra-Android">
+      <Configuration>Release</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{1427C806-62AA-4370-97F9-7084E866445E}</ProjectGuid>
+    <RootNamespace>lipPng</RootNamespace>
+    <ProjectName>libPng</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Tegra-Android'">
+    <PlatformToolset />
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+    <AndroidArch>armv5te</AndroidArch>
+    <AndroidStlType>system</AndroidStlType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Tegra-Android'">
+    <PlatformToolset />
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+    <AndroidArch>armv5te</AndroidArch>
+    <AndroidStlType>system</AndroidStlType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+    <AndroidArch>armv5te</AndroidArch>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+    <AndroidArch>armv5te</AndroidArch>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../zlib/CppSource</AdditionalIncludeDirectories>
+      <AdditionalOptions>-D_CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>../zlib/CppSource</AdditionalIncludeDirectories>
+      <AdditionalOptions>-D_CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="CppSource\png.c" />
+    <ClCompile Include="CppSource\pngerror.c" />
+    <ClCompile Include="CppSource\pngget.c" />
+    <ClCompile Include="CppSource\pngmem.c" />
+    <ClCompile Include="CppSource\pngpread.c" />
+    <ClCompile Include="CppSource\pngread.c" />
+    <ClCompile Include="CppSource\pngrio.c" />
+    <ClCompile Include="CppSource\pngrtran.c" />
+    <ClCompile Include="CppSource\pngrutil.c" />
+    <ClCompile Include="CppSource\pngset.c" />
+    <ClCompile Include="CppSource\pngtest.c" />
+    <ClCompile Include="CppSource\pngtrans.c" />
+    <ClCompile Include="CppSource\pngwio.c" />
+    <ClCompile Include="CppSource\pngwrite.c" />
+    <ClCompile Include="CppSource\pngwtran.c" />
+    <ClCompile Include="CppSource\pngwutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CppSource\png.h" />
+    <ClInclude Include="CppSource\pngconf.h" />
+    <ClInclude Include="CppSource\pngdebug.h" />
+    <ClInclude Include="CppSource\pnginfo.h" />
+    <ClInclude Include="CppSource\pngpriv.h" />
+    <ClInclude Include="CppSource\pngstruct.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

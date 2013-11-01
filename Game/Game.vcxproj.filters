@@ -1,0 +1,247 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="CppSource\main.cpp" />
+    <ClCompile Include="..\SDL\CppSource\src\main\windows\SDL_windows_main.c">
+      <Filter>SDL_main</Filter>
+    </ClCompile>
+    <ClCompile Include="..\SDL\CppSource\src\main\android\SDL_android_main.c">
+      <Filter>SDL_main</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\GFX\Window.cpp">
+      <Filter>GFX</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Core\Application.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Input\Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Core\Memory\LinearAllocator.cpp">
+      <Filter>Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Core\Memory\disable_raw_mem_ops.cpp">
+      <Filter>Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\GFX\Render.cpp">
+      <Filter>GFX</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\GFX\SceneGraph.cpp">
+      <Filter>GFX</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Geom\Rect.cpp">
+      <Filter>Geom</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Util\hash.cpp">
+      <Filter>Util</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Core\Concurrency\JobQueue.cpp">
+      <Filter>Core\Concurrency</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Core\Concurrency\Job.cpp">
+      <Filter>Core\Concurrency</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Core\String.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Core\Memory\SmallObjectPool.cpp">
+      <Filter>Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\Core\Memory\DoubleEndedLinearAllocator.cpp">
+      <Filter>Core\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\ResourcePack.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\Stream.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\Loaders\LoadAnimation.cpp">
+      <Filter>IO\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\Loaders\LoadAtlas.cpp">
+      <Filter>IO\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\Loaders\LoadFont.cpp">
+      <Filter>IO\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\Loaders\LoadSound.cpp">
+      <Filter>IO\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\GFX\Sprite.cpp">
+      <Filter>GFX</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\GFX\Texture.cpp">
+      <Filter>GFX</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\Loaders\Jpeg.cpp">
+      <Filter>IO\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\Loaders\Png.cpp">
+      <Filter>IO\Loaders</Filter>
+    </ClCompile>
+    <ClCompile Include="CppSource\IO\Loaders\Webp.cpp">
+      <Filter>IO\Loaders</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="SDL_main">
+      <UniqueIdentifier>{ce4b8e19-30d8-41a9-aa9b-d1c1ed1c05a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GFX">
+      <UniqueIdentifier>{bb4863c5-182e-44f7-8076-c5c8f37d9510}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util">
+      <UniqueIdentifier>{c56b9e28-dd1b-4b86-ba98-37c53cb625ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{65ed089c-782b-4cef-afd3-a3de8b59b558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{82d96a05-9e88-4837-9a2d-cea0e58cc4a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Memory">
+      <UniqueIdentifier>{a86cfc9d-5d32-4c93-88ca-6e7b92252625}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Geom">
+      <UniqueIdentifier>{8bb65a7a-705d-4806-a4ff-a41b2c6a52df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Concurrency">
+      <UniqueIdentifier>{e3f47885-b12c-4c00-8cf9-dd03d0523f7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{893a584b-1416-4701-881f-e01f965dd855}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO\Loaders">
+      <UniqueIdentifier>{a46c381a-ddd3-4ff1-9dc7-f329ef19c6e1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CppSource\GFX\Window.hpp">
+      <Filter>GFX</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\ptr_util.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Application.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Input\Input.hpp">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Delegate.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Event.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\noncopyable.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\defines.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\type_traits.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Memory\LinearAllocator.hpp">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Memory\ScopeStack.hpp">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\algorithm.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\CapacityArray.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\FixedArray.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\GFX\Render.hpp">
+      <Filter>GFX</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\GFX\RenderingNode.hpp">
+      <Filter>GFX</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\GFX\SceneGraph.hpp">
+      <Filter>GFX</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Geom\Matrix2D.hpp">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Geom\Vector2D.hpp">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Geom\Rect.hpp">
+      <Filter>Geom</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\hash.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Util\Registry.hpp">
+      <Filter>Util</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Concurrency\JobQueue.hpp">
+      <Filter>Core\Concurrency</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Concurrency\Job.hpp">
+      <Filter>Core\Concurrency</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\String.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Memory\SmallObjectPool.hpp">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\Memory\DoubleEndedLinearAllocator.hpp">
+      <Filter>Core\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\ResourcePack.hpp">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\Stream.hpp">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\Loaders\LoadAnimation.hpp">
+      <Filter>IO\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\Loaders\LoadAtlas.hpp">
+      <Filter>IO\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\Loaders\LoadFont.hpp">
+      <Filter>IO\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\Loaders\LoadSound.hpp">
+      <Filter>IO\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\TextureRegistry.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\Core\FontRegistry.hpp">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\GFX\Sprite.hpp">
+      <Filter>GFX</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\GFX\Texture.hpp">
+      <Filter>GFX</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\Loaders\Jpeg.hpp">
+      <Filter>IO\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\Loaders\Png.hpp">
+      <Filter>IO\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\IO\Loaders\Webp.hpp">
+      <Filter>IO\Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\GFX\Color.hpp">
+      <Filter>GFX</Filter>
+    </ClInclude>
+    <ClInclude Include="CppSource\GFX\ColorOffset.hpp">
+      <Filter>GFX</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

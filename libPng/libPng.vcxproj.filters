@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="CppSource\png.c" />
+    <ClCompile Include="CppSource\pngerror.c" />
+    <ClCompile Include="CppSource\pngget.c" />
+    <ClCompile Include="CppSource\pngmem.c" />
+    <ClCompile Include="CppSource\pngpread.c" />
+    <ClCompile Include="CppSource\pngread.c" />
+    <ClCompile Include="CppSource\pngrio.c" />
+    <ClCompile Include="CppSource\pngrtran.c" />
+    <ClCompile Include="CppSource\pngrutil.c" />
+    <ClCompile Include="CppSource\pngset.c" />
+    <ClCompile Include="CppSource\pngtest.c" />
+    <ClCompile Include="CppSource\pngtrans.c" />
+    <ClCompile Include="CppSource\pngwio.c" />
+    <ClCompile Include="CppSource\pngwrite.c" />
+    <ClCompile Include="CppSource\pngwtran.c" />
+    <ClCompile Include="CppSource\pngwutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CppSource\png.h" />
+    <ClInclude Include="CppSource\pngconf.h" />
+    <ClInclude Include="CppSource\pngdebug.h" />
+    <ClInclude Include="CppSource\pnginfo.h" />
+    <ClInclude Include="CppSource\pngpriv.h" />
+    <ClInclude Include="CppSource\pngstruct.h" />
+  </ItemGroup>
+</Project>

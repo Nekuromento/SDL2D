@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="NsightTegraProject">
+    <NsightTegraProjectRevisionNumber>4</NsightTegraProjectRevisionNumber>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Tegra-Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Tegra-Android">
+      <Configuration>Release</Configuration>
+      <Platform>Tegra-Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{663CEFFD-4280-42DE-AE56-155E36A0E7ED}</ProjectGuid>
+    <RootNamespace>zlib</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>NotSet</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Tegra-Android'">
+    <PlatformToolset />
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+    <AndroidArch>armv5te</AndroidArch>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Tegra-Android'">
+    <PlatformToolset />
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+    <AndroidArch>armv5te</AndroidArch>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|Tegra-Android'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+    <AndroidArch>armv5te</AndroidArch>
+    <AndroidStlType>none</AndroidStlType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|Tegra-Android'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <AndroidMinAPI>android-10</AndroidMinAPI>
+    <AndroidTargetAPI>android-10</AndroidTargetAPI>
+    <AndroidArch>armv5te</AndroidArch>
+    <AndroidStlType>none</AndroidStlType>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-D_CRT_SECURE_NO_WARNINGS -D_CRT_NONSTDC_NO_DEPRECATE %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalOptions>-D_CRT_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="CppSource\adler32.c" />
+    <ClCompile Include="CppSource\compress.c" />
+    <ClCompile Include="CppSource\crc32.c" />
+    <ClCompile Include="CppSource\deflate.c" />
+    <ClCompile Include="CppSource\gzclose.c" />
+    <ClCompile Include="CppSource\gzlib.c" />
+    <ClCompile Include="CppSource\gzread.c" />
+    <ClCompile Include="CppSource\gzwrite.c" />
+    <ClCompile Include="CppSource\infback.c" />
+    <ClCompile Include="CppSource\inffast.c" />
+    <ClCompile Include="CppSource\inflate.c" />
+    <ClCompile Include="CppSource\inftrees.c" />
+    <ClCompile Include="CppSource\trees.c" />
+    <ClCompile Include="CppSource\uncompr.c" />
+    <ClCompile Include="CppSource\zutil.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CppSource\crc32.h" />
+    <ClInclude Include="CppSource\deflate.h" />
+    <ClInclude Include="CppSource\gzguts.h" />
+    <ClInclude Include="CppSource\inffast.h" />
+    <ClInclude Include="CppSource\inffixed.h" />
+    <ClInclude Include="CppSource\inflate.h" />
+    <ClInclude Include="CppSource\inftrees.h" />
+    <ClInclude Include="CppSource\trees.h" />
+    <ClInclude Include="CppSource\zconf.h" />
+    <ClInclude Include="CppSource\zlib.h" />
+    <ClInclude Include="CppSource\zutil.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
