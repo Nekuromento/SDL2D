@@ -304,7 +304,7 @@ protected:
                 new (&newInstance) Functor(*reinterpret_cast<Functor*>(const_cast<void**>(&instance)));
             } else {
                 void* memory =
-                    CPoolObjectAllocator::g_pAllocator->alloc(sizeof(Functor));
+                    SmallObjectPool::getDefault().allocate(sizeof(Functor), std::alignment_of<Functor>::value, 0);
                 newInstance = new (memory) Functor(*static_cast<Functor*>(instance));
             }
         }
@@ -433,7 +433,7 @@ public:
             return created;
         }
         void* memory =
-            CPoolObjectAllocator::g_pAllocator->alloc(sizeof(Functor));
+            SmallObjectPool::getDefault().allocate(sizeof(Functor), std::alignment_of<Functor>::value, 0);
         return Delegate(FunctorVtable<Functor>::value,
                         new (memory) Functor(std::forward<Functor>(functor)));
     }
@@ -574,7 +574,7 @@ public:
             return created;
         }
         void* memory =
-            CPoolObjectAllocator::g_pAllocator->alloc(sizeof(Functor));
+            SmallObjectPool::getDefault().allocate(sizeof(Functor), std::alignment_of<Functor>::value, 0);
         return Delegate(FunctorVtable<Functor>::value,
                         new (memory) Functor(std::forward<Functor>(functor)));
     }
@@ -716,7 +716,7 @@ public:
             return created;
         }
         void* memory =
-            CPoolObjectAllocator::g_pAllocator->alloc(sizeof(Functor));
+            SmallObjectPool::getDefault().allocate(sizeof(Functor), std::alignment_of<Functor>::value, 0);
         return Delegate(FunctorVtable<Functor>::value,
                         new (memory) Functor(std::forward<Functor>(functor)));
     }
@@ -858,7 +858,7 @@ public:
             return created;
         }
         void* memory =
-            CPoolObjectAllocator::g_pAllocator->alloc(sizeof(Functor));
+            SmallObjectPool::getDefault().allocate(sizeof(Functor), std::alignment_of<Functor>::value, 0);
         return Delegate(FunctorVtable<Functor>::value,
                         new (memory) Functor(std::forward<Functor>(functor)));
     }
