@@ -7,6 +7,11 @@ add_library (Engine
     Core/Memory/LinearAllocator.cpp
     Core/Memory/SmallObjectPool.cpp
     Core/String.cpp
+    Crypto/Base64.cpp
+    Crypto/Hex.cpp
+    Crypto/HMAC.cpp
+    Crypto/MD5.cpp
+    Crypto/RC4.cpp
     Geom/Rect.cpp
     GFX/Render.cpp
     GFX/SceneGraph.cpp
@@ -14,6 +19,9 @@ add_library (Engine
     GFX/Texture.cpp
     GFX/Window.cpp
     Input/Input.cpp
+    IO/Compressed.cpp
+    IO/Encrypted.cpp
+    IO/FileUtils.cpp
     IO/Loaders/Jpeg.cpp
     IO/Loaders/LoadAnimation.cpp
     IO/Loaders/LoadAtlas.cpp
