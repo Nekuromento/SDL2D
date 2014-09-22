@@ -1,7 +1,6 @@
 #include "Compressed.hpp"
 
 #include "Core/String.hpp"
-#include "Core/Memory/SmallObjectPool.hpp"
 
 #include "zlib.h"
 #include "SDL_rwops.h"
@@ -11,22 +10,15 @@
 #include <algorithm>
 #include <memory>
 
-static SDL_RWops* allocateSource() {
-    const size_t size = sizeof(SDL_RWops);
-    const size_t alignment = std::alignment_of<SDL_RWops>::value;
-
-    return static_cast<SDL_RWops*>(SmallObjectPool::getDefault().allocate(size, alignment, 0));
-}
-
 //XXX: gzip stores uncompressed stream size in last 4 bytes of file
 //     if stream is larger then 4 Gb we are screwed
 static size_t getFileSize(const char* const filename) {
-    auto file = setupRWFromFile(allocateSource(), filename, "rb");
+    auto source = SDL_RWops();
+    auto file = setupRWFromFile(&source, filename, "rb");
 
     SDL_RWseek(file, -4, SEEK_END);
     const size_t size = SDL_ReadLE32(file);
     SDL_RWclose(file);
-    SmallObjectPool::getDefault().free(source);
 
     return size;
 }
