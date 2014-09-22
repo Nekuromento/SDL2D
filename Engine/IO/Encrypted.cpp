@@ -1,6 +1,7 @@
 #include "Encrypted.hpp"
 
 #include "Core/String.hpp"
+#include "Core/Memory/LinearAllocator.hpp"
 #include "Core/Memory/SmallObjectPool.hpp"
 #include "Crypto/RC4.h"
 
@@ -19,13 +20,13 @@ static T* allocateSmallObject() {
 }
 
 bool rc4_file_open(SDL_RWops* const rwops, const char* const filename, const char* const mode, const char* const key) {
-    SDL_RWops* file = setupRWFromFile(allocateSmallObject<SDL_RWops>(), filename.begin(), mode);
+    SDL_RWops* file = setupRWFromFile(allocateSmallObject<SDL_RWops>(), filename, mode);
     assert(file);
 
     rwops->hidden.unknown.data1 = file;
     //XXX: RC4 doesn't fit in default small object pool, should probably create a separate
     //     pool for them
-    rwops->hidden.unknown.data2 = allocateSmallObject<RC4>(reinterpret_cast<const uint8_t*>(key), strlen(key));
+    rwops->hidden.unknown.data2 = new (allocateSmallObject<RC4>()) RC4(reinterpret_cast<const uint8_t*>(key), strlen(key));
 
     return true;
 }
@@ -60,7 +61,11 @@ static size_t rc4_file_write(SDL_RWops* const context, const void *ptr, size_t s
     auto const rwops = reinterpret_cast<SDL_RWops*>(context->hidden.unknown.data1);
     auto const rc4 = reinterpret_cast<RC4*>(context->hidden.unknown.data2);
 
-    const auto encrypted = rc4->encrypt(reinterpret_cast<const uint8_t*>(ptr), size * num);
+    const size_t allocSize = size * num;
+    auto mem = static_cast<uint8_t*>(alloca(allocSize));
+    LinearAllocator alloc{ mem, mem + allocSize };
+    const auto encrypted = rc4->encrypt(alloc, reinterpret_cast<const uint8_t*>(ptr), allocSize);
+
     return SDL_RWwrite(rwops, &encrypted[0], encrypted.size(), 1);
 }
 
@@ -81,7 +86,7 @@ static int rc4_file_close(SDL_RWops* const context) {
 }
 
 SDL_RWops* setupRWFromEncryptedFile(SDL_RWops* const rwops, const char* const filename, const char* const mode, const char* const key) {
-    const bool opened = rc4_file_open(rwops, filename, mode, key)
+    const bool opened = rc4_file_open(rwops, filename, mode, key);
     assert(opened);
 
     rwops->size = rc4_file_size;

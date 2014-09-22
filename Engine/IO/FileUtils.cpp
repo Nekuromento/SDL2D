@@ -1,7 +1,7 @@
 #include "FileUtils.h"
 
 #include "Core/String.hpp"
-#include "Core/PooledObject.h"
+#include "Core/Memory/SmallObjectPool.hpp"
 
 #include "SDL_filesystem.h"
 
@@ -125,7 +125,7 @@ bool FileUtils::rename(const char* const sourceName, const char* const targetNam
 }
 
 #ifdef __WIN32__
-struct IterationState : public CPooledObject {
+struct IterationState {
     WIN32_FIND_DATA ffd;
     std::unique_ptr<void, decltype(&FindClose)> dirHandle;
     FileUtils::File file;
@@ -146,7 +146,7 @@ struct IterationState : public CPooledObject {
     }
 };
 #else
-struct IterationState : public CPooledObject {
+struct IterationState {
     std::unique_ptr<DIR, decltype(&closedir)> dirHandle;
     dirent* ent;
     FileUtils::File file;
@@ -204,7 +204,7 @@ FileUtils::DirIterator& FileUtils::DirIterator::operator ++() {
 #endif
 
     if (reachedEnd) {
-        delete state;
+        SmallObjectPool::getDefault().free(state);
         state = nullptr;
     } else {
 #ifdef __WIN32__
@@ -238,8 +238,16 @@ FileUtils::DirIterator FileUtils::iterateDir(const String& dirName) {
     return iterateDir(dirName.begin());
 }
 
+template<typename T>
+static T* allocateSmallObject() {
+    const size_t size = sizeof(T);
+    const size_t alignment = std::alignment_of<T>::value;
+
+    return static_cast<T*>(SmallObjectPool::getDefault().allocate(size, alignment, 0));
+}
+
 FileUtils::DirIterator FileUtils::iterateDir(const char* const dirName) {
-    auto iter = DirIterator(new IterationState(dirName));
+    auto iter = DirIterator(new (allocateSmallObject<IterationState>()) IterationState(dirName));
 #ifdef __WIN32__
     if (iter.state->dirHandle.get() == INVALID_HANDLE_VALUE)
         return DirIterator(nullptr);
