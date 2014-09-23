@@ -24,15 +24,40 @@ class Event<ReturnType (Args...)> : public util::Noncopyable {
 public:
     template <typename Allocator>
     explicit Event(Allocator& alloc, const size_t capacity = 1) :
-        _handlers {alloc, capacity},
-        _deletedInInvoke {nullptr}
+        _handlers{ alloc, capacity },
+        _deletedInInvoke{ nullptr }
     {}
+
+    template <typename Allocator>
+    Event(Allocator& alloc, Event& other) :
+        _handlers{ alloc, other._handlers },
+        _deletedInInvoke{ nullptr }
+    {}
+
+    Event(Event&& other) :
+        _handlers{ std::move(other._handlers) },
+        _deletedInInvoke{ other._deletedInInvoke }
+    {
+        other._handlers = DelegateList();
+        other._deletedInInvoke = nullptr;
+    }
 
     ~Event() {
         // signal invoke function that we are deleted
         if (_deletedInInvoke) {
             *_deletedInInvoke = true;
         }
+    }
+
+    Event& operator =(Event&& other) NOEXCEPT {
+        other.swap(*this);
+
+        return *this;
+    }
+
+    void swap(Event& other) NOEXCEPT {
+        _handlers.swap(other._handlers);
+        std::swap(_deletedInInvoke, other._deletedInInvoke);
     }
 
     bool empty() const NOEXCEPT {
