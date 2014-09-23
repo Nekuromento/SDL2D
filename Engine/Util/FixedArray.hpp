@@ -64,7 +64,7 @@ public:
         return *this;
     }
 
-    void swap(FixedArray& other) {
+    void swap(FixedArray& other) NOEXCEPT {
         std::swap(_ptr, other._ptr);
         std::swap(_size, other._size);
     }
