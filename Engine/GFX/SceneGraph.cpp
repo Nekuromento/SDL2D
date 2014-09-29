@@ -5,9 +5,7 @@
 void SceneGraph::initRootNode() NOEXCEPT {
     parents[0] = -1;
     localTransforms[0] = Matrix().identify();
-    localBounds[0] = Rect();
     localColors[0] = Color();
-    localColorOffsets[0] = ColorOffset();
 }
 
 void SceneGraph::updateGlobalTransforms() NOEXCEPT {
@@ -16,20 +14,22 @@ void SceneGraph::updateGlobalTransforms() NOEXCEPT {
     }
 }
 
+void SceneGraph::updateGlobalColors() NOEXCEPT {
+    for (size_t i = 1; i < nodeCount; ++i) {
+        globalColors[i] = globalColors[parents[i]] * localColors[i];
+    }
+}
+
 uint16_t SceneGraph::addNode(const uint16_t parent,
                              const Matrix& transform,
-                             const Rect& bounds,
-                             const Color& color,
-                             const ColorOffset& offset) NOEXCEPT {
+                             const Color& color) NOEXCEPT {
     assert(("Max node count reached", nodeCount != MaxNodeCount));
     assert(("Only root can be without a parent", parent != static_cast<uint16_t>(-1)));
     assert(("Invalid parent", parent < nodeCount));
 
     parents[nodeCount] = parent;
     localTransforms[nodeCount] = transform;
-    localBounds[nodeCount] = bounds;
     localColors[nodeCount] = color;
-    localColorOffsets[nodeCount] = offset;
 
     return nodeCount++;
 }
