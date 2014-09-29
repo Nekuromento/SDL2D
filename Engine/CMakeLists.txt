@@ -13,6 +13,7 @@ add_library (Engine
     Crypto/MD5.cpp
     Crypto/RC4.cpp
     Geom/Rect.cpp
+    GFX/Animation/AnimationState.cpp
     GFX/Render.cpp
     GFX/SceneGraph.cpp
     GFX/Sprite.cpp
