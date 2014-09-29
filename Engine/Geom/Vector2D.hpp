@@ -84,4 +84,10 @@ struct Vector2D {
     }
 };
 
+template <typename T>
+REALLY_INLINE static Vector2D<T> lerp(const Vector2D<T>& lhs, const Vector2D<T>& rhs, const float delta) {
+    return Vector2D<T>(lhs.x * (1 - delta) + rhs.x * delta,
+                       lhs.y * (1 - delta) + rhs.y * delta);
+}
+
 #endif // Vector2D_h__
