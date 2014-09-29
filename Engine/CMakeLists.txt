@@ -14,6 +14,7 @@ add_library (Engine
     Crypto/RC4.cpp
     Geom/Rect.cpp
     GFX/Animation/AnimationState.cpp
+    GFX/Animation/Sample.cpp
     GFX/Render.cpp
     GFX/SceneGraph.cpp
     GFX/Sprite.cpp

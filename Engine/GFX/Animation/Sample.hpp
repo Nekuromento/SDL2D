@@ -6,14 +6,6 @@
 #include "GFX/Color.hpp"
 
 struct Sample {
-    enum TransformationType {
-        Position = 0,
-        Scale = 1,
-        Rotation = 2,
-        Shear = 4,
-        RGBA = 8
-    };
-
     struct Index {
         uint16_t index : 10;
         uint8_t typeMask : 6;
