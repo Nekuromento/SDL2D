@@ -1,7 +1,8 @@
 #ifndef Matrix2D_h__
 #define Matrix2D_h__
 
-#include "Vector2D.hpp"
+#include "Geom/Complex.hpp"
+#include "Geom/Vector2D.hpp"
 
 template <typename T>
 struct Matrix2D {
@@ -29,17 +30,29 @@ struct Matrix2D {
     }
 
     REALLY_INLINE Matrix2D<T> operator* (const Matrix2D& other) const NOEXCEPT {
+        Matrix2D result = multiplyRotation(other);
+
+        result.t = other.transformVector(t);
+
+        return result;
+    }
+
+    inline Matrix2D multiplyRotation(const Matrix2D& other) const NOEXCEPT {
         // explicitly using local variables to signal compiler that no aliasing is occurring
-        const T a00 = m[0][0], a01 = m[0][1], a10 = m[1][0], a11 = m[1][1];
-        const T b00 = other.m[0][0], b01 = other.m[0][1], b10 = other.m[1][0], b11 = other.m[1][1];
+        const T a00 = m[0][0],
+                a01 = m[0][1],
+                a10 = m[1][0],
+                a11 = m[1][1];
+        const T b00 = other.m[0][0],
+                b01 = other.m[0][1],
+                b10 = other.m[1][0],
+                b11 = other.m[1][1];
 
         Matrix2D result;
         result.m[0][0] = a00 * b00 + a01 * b10;
         result.m[0][1] = a00 * b01 + a01 * b11;
         result.m[1][0] = a10 * b00 + a11 * b10;
         result.m[1][1] = a10 * b01 + a11 * b11;
-
-        result.t = other.transformVector(t);
 
         return result;
     }
@@ -66,12 +79,20 @@ struct Matrix2D {
         t.y *= scaleFactor;
     }
 
-    REALLY_INLINE void setRotation(const T angle, const bool resetTranslation = true) NOEXCEPT {
-        if (resetTranslation)
-            t.x = t.y = 0;
+    REALLY_INLINE void setRotation(const Complex<T>& rotation) NOEXCEPT {
+        m[0][0] = m[1][1] = rotation.real;
+        m[0][1] = rotation.imag;
+        m[1][0] = -rotation.imag;
+    }
 
-        m[0][0] = m[1][1] = cosine(-angle);
-        m[0][1] = -(m[1][0] = sine(-angle));
+    REALLY_INLINE void setShear(const Vector2D<T>& shear) NOEXCEPT {
+        m[0][1] = shear.x;
+        m[1][0] = shear.y;
+    }
+
+    REALLY_INLINE void setScale(const Vector2D<T>& scale) NOEXCEPT {
+        m[0][0] = scale.x;
+        m[1][1] = scale.y;
     }
 
     REALLY_INLINE void copyRotation(const Matrix2D& otherMatrix) NOEXCEPT {
