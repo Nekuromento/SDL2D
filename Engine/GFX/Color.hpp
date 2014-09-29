@@ -48,4 +48,11 @@ struct Color {
     }
 };
 
+REALLY_INLINE static Color lerp(const Color& lhs, const Color& rhs, const float delta) {
+    return Color(lhs.r * (1 - delta) + rhs.r * delta,
+                 lhs.g * (1 - delta) + rhs.g * delta,
+                 lhs.b * (1 - delta) + rhs.b * delta,
+                 lhs.a * (1 - delta) + rhs.a * delta);
+}
+
 #endif // Color_h__
