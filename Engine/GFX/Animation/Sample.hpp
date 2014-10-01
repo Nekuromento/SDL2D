@@ -21,6 +21,7 @@ struct Sample {
     Vector shear;
     Color color;
 
+    //XXX: should it be possible to use IO/Streams?
     static Index peekIndex(const uint8_t* const sampleStream, const size_t playhead);
     static size_t read(const uint8_t* const sampleStream, const size_t playhead, Sample* const target);
 };

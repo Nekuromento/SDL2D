@@ -37,6 +37,8 @@ void AnimationState::evaluate(AnimationState::Matrix* const localTransforms,
         const State& frame = state[i];
         const float delta = progress(frame.timeStart, frame.timeEnd, time);
 
+        //XXX: most of the changes are probably position, rotation and scale
+        //     maybe we should process color and shear changes separately
         const auto position = lerp(frame.before.position, frame.after.position, delta);
         const auto scale    = lerp(frame.before.scale,    frame.after.scale,    delta);
         const auto rotation = lerp(frame.before.rotation, frame.after.rotation, delta);
