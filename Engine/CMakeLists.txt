@@ -24,7 +24,6 @@ add_library (Engine
     IO/Compressed.cpp
     IO/Encrypted.cpp
     IO/FileUtils.cpp
-    IO/Loaders/Jpeg.cpp
     IO/Loaders/LoadAnimation.cpp
     IO/Loaders/LoadAtlas.cpp
     IO/Loaders/LoadFont.cpp
