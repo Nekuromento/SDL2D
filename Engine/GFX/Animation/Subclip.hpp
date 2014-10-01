@@ -1,13 +1,11 @@
 #ifndef Subclip_h__
 #define Subclip_h__
 
-#include "GFX/Animation/AnimationState.hpp"
-#include "Util/noncopyable.hpp"
+#include <cstdlib>
 
-struct Subclip : util::Noncopyable {
-    AnimationState state;
+struct Subclip {
+    uint32_t nameHash;
     const uint8_t* sampleStream;
-    size_t playhead;
 };
 
 #endif /* Subclip_h__ */
