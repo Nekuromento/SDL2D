@@ -1,10 +1,10 @@
 #include "Png.hpp"
 
-#include "png.h"
+//#include "png.h"
 
 #include "Core/Memory/DoubleEndedLinearAllocator.hpp"
 #include "IO/Stream.hpp"
-
+/*
 static const size_t SignatureSize = 8;;
 
 static bool validatePNGSignature(Stream& stream) {
@@ -17,9 +17,9 @@ static bool validatePNGSignature(Stream& stream) {
 static void readPNGData(png_structp readContext, png_bytep data, png_size_t length) {
     static_cast<Stream*>(png_get_io_ptr(readContext))->readTo(data, length);
 }
-
+*/
 bool loadPng(Stream& stream, uint8_t* const buffer, DoubleEndedLinearAllocator& alloc) {
-    const bool isValid = validatePNGSignature(stream);
+/*    const bool isValid = validatePNGSignature(stream);
     if (!isValid)
         return false;
 
@@ -72,6 +72,6 @@ bool loadPng(Stream& stream, uint8_t* const buffer, DoubleEndedLinearAllocator& 
     png_read_image(readContext, rows);
     png_read_end(readContext, pngInfo);
     png_destroy_read_struct(&readContext, &pngInfo, &pngInfoEnd);
-
+*/
     return true;
 }
