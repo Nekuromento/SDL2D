@@ -1,5 +1,6 @@
 #include "GFX/Animation/AnimationSystem.hpp"
 
+#include "Core/ClipRegistry.hpp"
 #include "GFX/Animation/Sample.hpp"
 #include "GFX/Color.hpp"
 #include "Geom/Matrix2D.hpp"
@@ -22,8 +23,38 @@ struct AnimationState {
 
 typedef Matrix2D<float> Matrix;
 
-AnimationSystem::Handle AnimationSystem::startAnimation(const uint32_t clip,
-                                                        const uint32_t animation,
+template <typename T>
+REALLY_INLINE size_t readFromStream(const uint8_t* const stream, const size_t playhead, T* const target) {
+    //TODO: endian-correctness
+    *target = *reinterpret_cast<const T*>(stream + playhead);
+
+    return playhead + sizeof(T);
+}
+
+uint32_t advanceTime(AnimationState* const state,
+                     const uint16_t time,
+                     const uint8_t* const sampleStream,
+                     const uint32_t playhead) {
+    uint32_t newPlayhead = playhead;
+
+    for (;;) {
+        const Sample::Index next = Sample::peekIndex(sampleStream, newPlayhead);
+        AnimationState& sample = state[next.index];
+        if (time < sample.timeEnd)
+            return newPlayhead;
+
+        sample.timeStart = sample.timeEnd;
+        sample.before = sample.after;
+
+        newPlayhead = Sample::read(sampleStream, newPlayhead, &sample.after);
+    }
+
+    return newPlayhead;
+}
+
+
+AnimationSystem::Handle AnimationSystem::startAnimation(const uint32_t clipHash,
+                                                        const uint32_t animationHash,
                                                         const bool cycle) {
     assert(("Maximum animation count reached", clipCount < MaxPlayingClipCount));
 
@@ -52,10 +83,35 @@ AnimationSystem::Handle AnimationSystem::startAnimation(const uint32_t clip,
     handleIndeces[playingClipCount] = firstFreeIndex;
     firstFreeIndex = oldHandle.index;
 
+    const Clip* prototype = ClipRegistry::getDefault().resourceForHandle(clipHash);
+    assert(("Invalid clip handle", prototype));
+
+    const Animation* animation = std::lower_bound(prototype->animations,
+                                                  prototype->animations + prototype->animationCount,
+                                                  animationHash,
+                                                  [](const Animation& animation, const uint32_t hash){
+                                                      return animation.nameHash < hash;
+                                                  });
+    assert(("Invalid animation handle", animation != prototype->animations + prototype->animationCount));
+    assert(("Invalid animation handle", animation->nameHash == animationHash));
+
+    auto clip = PlayingClip{ nullptr /*allocate memory for nodes */,
+                             prototype,
+                             animation->sampleStream + sizeof(float),
+                             0,
+                             0,
+                             0 };
+    readFromStream(animation->sampleStream, 0, &clip.timeScale);
+
+    clip.playhead = ::advanceTime(clip.nodeStates,
+                                  clip.time,
+                                  clip.sampleStream,
+                                  clip.playhead);
+
+    clips[playingClipCount] = clip;
+
     ++playingClipCount;
     ++clipCount;
-
-    //TODO: actually start the animation
 
     return newHandle;
 }
@@ -178,27 +234,6 @@ bool AnimationSystem::resumeAnimation(const AnimationSystem::Handle handle) {
     ++playingClipCount;
 
     return true;
-}
-
-uint32_t advanceTime(AnimationState* const state,
-                     const uint16_t time,
-                     const uint8_t* const sampleStream,
-                     const uint32_t playhead) {
-    uint32_t newPlayhead = playhead;
-
-    for (;;) {
-        const Sample::Index next = Sample::peekIndex(sampleStream, newPlayhead);
-        AnimationState& sample = state[next.index];
-        if (time < sample.timeEnd)
-            return newPlayhead;
-
-        sample.timeStart = sample.timeEnd;
-        sample.before = sample.after;
-
-        newPlayhead = Sample::read(sampleStream, newPlayhead, &sample.after);
-    }
-
-    return newPlayhead;
 }
 
 void AnimationSystem::advanceTime(const float delta) {
