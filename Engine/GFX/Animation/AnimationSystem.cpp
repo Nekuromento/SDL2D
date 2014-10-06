@@ -63,9 +63,12 @@ AnimationSystem::Handle AnimationSystem::startAnimation(const uint32_t clip,
 void AnimationSystem::stopAnimation(const AnimationSystem::Handle handle) {
     const auto storedHandle = lookup[handle.index];
     assert(("Invalid animation handle", storedHandle.index < clipCount));
-    assert(("Using handle of destroyed animation", storedHandle.cycle != handle.cycle));
+    assert(("Using handle of destroyed animation", storedHandle.cycle == handle.cycle));
 
-    if (storedHandle.index < playingClipCount) {
+    --playingClipCount;
+    --clipCount;
+
+    if (storedHandle.index <= playingClipCount) {
         // If it were playing we have to perform two swaps
         // First we swap with last playing element
         //
@@ -117,9 +120,6 @@ void AnimationSystem::stopAnimation(const AnimationSystem::Handle handle) {
 
     lookup[handleIndeces[clipCount]].index = firstFreeIndex;
     firstFreeIndex = handleIndeces[clipCount];
-
-    --playingClipCount;
-    --clipCount;
 
     //TODO: actually stop the animation
 }
