@@ -93,7 +93,7 @@ public:
         auto entry = entryForHash(nameHash);
         assert(("No resource found", entry != _entries + _entryCount));
 
-        return entry->texture;
+        return entry->resource;
     }
 };
 
