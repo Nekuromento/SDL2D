@@ -169,8 +169,6 @@ void AnimationSystem::stopAnimation(const AnimationSystem::Handle handle) {
 
     lookup[handleIndeces[clipCount]].index = firstFreeIndex;
     firstFreeIndex = handleIndeces[clipCount];
-
-    //TODO: actually stop the animation
 }
 
 bool AnimationSystem::pauseAnimation(const AnimationSystem::Handle handle) {
