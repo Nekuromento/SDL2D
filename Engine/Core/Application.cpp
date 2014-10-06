@@ -1,12 +1,16 @@
-#include "Application.hpp"
+#include "Core/Application.hpp"
 
 #include <algorithm>
 
 #include "SDL.h"
 
-#include "Concurrency/Job.hpp"
-#include "Concurrency/JobQueue.hpp"
-#include "FontRegistry.hpp"
+#include "Core/ClipRegistry.hpp"
+#include "Core/Concurrency/Job.hpp"
+#include "Core/Concurrency/JobQueue.hpp"
+#include "Core/FontRegistry.hpp"
+#include "Core/SpriteRegistry.hpp"
+#include "Core/TextureRegistry.hpp"
+#include "GFX/Animation/AnimationSystem.hpp"
 #include "GFX/Render.hpp"
 #include "GFX/Window.hpp"
 #include "Input/Input.hpp"
@@ -15,12 +19,7 @@
 #include "Memory/ScopeStack.hpp"
 #include "Memory/SmallObjectPool.hpp"
 #include "String.hpp"
-#include "SpriteRegistry.hpp"
-#include "TextureRegistry.hpp"
 #include "Util/Registry.hpp"
-
-struct Font;
-struct Texture;
 
 static const int64_t Second = SDL_GetPerformanceFrequency();
 static const int64_t UpdateFrequency = 60;
@@ -69,6 +68,9 @@ void Application::run() {
     TextureRegistry::DefaultInstance textureRegistry(appAlloc);
     SpriteRegistry::DefaultInstance spriteRegistry(appAlloc);
     FontRegistry::DefaultInstance fontRegistry(appAlloc);
+    ClipRegistry::DefaultInstance ClipRegistry(appAlloc);
+
+    AnimationSystem::DefaultInstance animationSystem(appAlloc);
 
     //TODO: load stuff
 

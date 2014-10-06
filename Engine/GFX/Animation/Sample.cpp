@@ -17,6 +17,7 @@ namespace Transform {
 
 template <typename T>
 REALLY_INLINE size_t readFromStream(const uint8_t* const stream, const size_t playhead, T* const target) {
+    //TODO: endian-correctness
     *target = *reinterpret_cast<const T*>(stream + playhead);
 
     return playhead + sizeof(T);
