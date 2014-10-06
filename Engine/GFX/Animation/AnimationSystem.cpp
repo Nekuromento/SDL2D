@@ -1,7 +1,6 @@
 #include "GFX/Animation/AnimationSystem.hpp"
 
 #include "Core/ClipRegistry.hpp"
-#include "GFX/Animation/Sample.hpp"
 #include "GFX/Color.hpp"
 #include "Geom/Matrix2D.hpp"
 #include "Geom/Vector2D.hpp"
@@ -14,13 +13,6 @@ struct Animation {
     uint16_t streamLength;
 };
 
-struct AnimationState {
-    uint16_t timeStart;
-    uint16_t timeEnd;
-    Sample before;
-    Sample after;
-};
-
 typedef Matrix2D<float> Matrix;
 
 template <typename T>
@@ -31,7 +23,7 @@ REALLY_INLINE size_t readFromStream(const uint8_t* const stream, const size_t pl
     return playhead + sizeof(T);
 }
 
-uint32_t advanceTime(AnimationState* const state,
+uint32_t advanceTime(AnimationSystem::AnimationState* const state,
                      const uint16_t time,
                      const uint8_t* const sampleStream,
                      const uint32_t playhead) {
@@ -39,7 +31,7 @@ uint32_t advanceTime(AnimationState* const state,
 
     for (;;) {
         const Sample::Index next = Sample::peekIndex(sampleStream, newPlayhead);
-        AnimationState& sample = state[next.index];
+        auto& sample = state[next.index];
         if (time < sample.timeEnd)
             return newPlayhead;
 
@@ -78,6 +70,7 @@ AnimationSystem::Handle AnimationSystem::startAnimation(const uint32_t clipHash,
     const Handle oldHandle = lookup[firstFreeIndex];
     const Handle newHandle = { playingClipCount, static_cast<uint16_t>(oldHandle.cycle + 1) };
 
+    AnimationState* nodes = nodeStates + (firstFreeIndex * MaxClipNodeCount);
     lookup[firstFreeIndex] = newHandle;
 
     handleIndeces[playingClipCount] = firstFreeIndex;
@@ -95,7 +88,7 @@ AnimationSystem::Handle AnimationSystem::startAnimation(const uint32_t clipHash,
     assert(("Invalid animation handle", animation != prototype->animations + prototype->animationCount));
     assert(("Invalid animation handle", animation->nameHash == animationHash));
 
-    auto clip = PlayingClip{ nullptr /*allocate memory for nodes */,
+    auto clip = PlayingClip{ nodes,
                              prototype,
                              animation->sampleStream + sizeof(float),
                              0,
@@ -254,13 +247,13 @@ REALLY_INLINE static float progress(const uint16_t start, const uint16_t end, co
     return offset / whole;
 }
 
-void evaluateAnimation(const AnimationState* const state,
+void evaluateAnimation(const AnimationSystem::AnimationState* const state,
                        const uint8_t nodeCount,
                        Matrix* const localTransforms,
                        Color* const localColors,
                        const uint16_t time) {
     for (size_t i = 0; i < nodeCount; ++i) {
-        const AnimationState& frame = state[i];
+        const auto& frame = state[i];
         const float delta = progress(frame.timeStart, frame.timeEnd, time);
 
         //XXX: most of the changes are probably position, rotation and scale

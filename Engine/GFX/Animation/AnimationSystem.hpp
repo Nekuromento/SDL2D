@@ -7,8 +7,8 @@
 #include <new>
 
 #include "Util/noncopyable.hpp"
+#include "GFX/Animation/Sample.hpp"
 
-struct AnimationState;
 struct Animation;
 
 struct Clip {
@@ -34,6 +34,13 @@ public:
         uint16_t cycle : 7;
     };
 
+    struct AnimationState {
+        uint16_t timeStart;
+        uint16_t timeEnd;
+        Sample before;
+        Sample after;
+    };
+
 private:
     struct PlayingClip {
         AnimationState* nodeStates;
@@ -45,12 +52,19 @@ private:
     };
 
     static const size_t MaxPlayingClipCount = 16 * 1024;
+    static const size_t MaxClipNodeCount = 256;
+
     static const size_t PlayingClipsStorageSize = MaxPlayingClipCount * sizeof(PlayingClip);
     static const size_t PlayingClipsAlignment = std::alignment_of<PlayingClip>::value;
-    static const size_t HandleIndecesStorageSize = MaxPlayingClipCount * sizeof(Handle);
-    static const size_t HandleIndecesAlignment = std::alignment_of<Handle>::value;
+
+    static const size_t HandleIndecesStorageSize = MaxPlayingClipCount * sizeof(uint16_t);
+    static const size_t HandleIndecesAlignment = std::alignment_of<uint16_t>::value;
+
     static const size_t LookupStorageSize = MaxPlayingClipCount * sizeof(Handle);
     static const size_t LookupAlignment = std::alignment_of<Handle>::value;
+
+    static const size_t NodeStatesStorageSize = MaxPlayingClipCount * MaxClipNodeCount * sizeof(AnimationState);
+    static const size_t NodeStateAlignment = std::alignment_of<AnimationState>::value;
 
     // We store all clip instances in one array
     // All paused clips are moved to the end of array
@@ -75,6 +89,7 @@ private:
 
     PlayingClip* clips;
     uint16_t* handleIndeces;
+    AnimationState* nodeStates;
     Handle* lookup;
     uint16_t playingClipCount;
     uint16_t clipCount;
@@ -107,6 +122,7 @@ public:
     AnimationSystem(Allocator& alloc) :
         clips{ reinterpret_cast<PlayingClip*>(alloc.allocate(PlayingClipsStorageSize, PlayingClipsAlignment, 0)) },
         handleIndeces{ reinterpret_cast<uint16_t*>(alloc.allocate(HandleIndecesStorageSize, HandleIndecesAlignment, 0)) },
+        nodeStates{ reinterpret_cast<AnimationState*>(alloc.allocate(NodeStatesStorageSize, NodeStateAlignment, 0)) },
         lookup{ reinterpret_cast<Handle*>(alloc.allocate(LookupStorageSize, LookupAlignment, 0)) },
         clipCount{ 0 },
         playingClipCount{ 0 },
