@@ -75,15 +75,15 @@ private:
     //          --playingClipCount
     //
     // All animations are controled using a handle
-    // Handles are indexes in a lookup table to allow decouple handle from the actual
-    // address of the animation it represents
+    // Handles are indexes in a lookup table to decouple handle from the actual address of
+    // the animation it represents
     //
-    // To allow operations to be O(1) every running clip has its handle index in lookup
-    // table. When the clip is moved index is used to update the location handle will
-    // point
+    // To allow add/remove/pause/resume operations to be O(1) every running clip has its
+    // handle index in lookup table. When the clip is moved index is used to update the
+    // location handle will point to
     //
-    // Handle contains index into lookup table and cicle marker used to detect invalid
-    // handles
+    // Handle contains an index into clip array and a cycle marker (used for detection of
+    // invalid handles)
     //
     // Unused cells in lookup table are used to store index of the next free cell
 
@@ -128,6 +128,7 @@ public:
         playingClipCount{ 0 },
         firstFreeIndex{ 0 }
     {
+        // initialize lookup table with indeces of the next free cell
         for (size_t i = 0; i < MaxPlayingClipCount; ++i) {
             lookup[i] = { static_cast<uint16_t>(i + 1), 0 };
         }
